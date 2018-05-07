@@ -1,6 +1,7 @@
 package pl.aborolabis.projects.EntityObjects;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "nationalities")
@@ -16,15 +17,20 @@ public class Nationality {
 
     @OneToOne
     @JoinColumn(name = "hero_id")
-    @Column(name = "owner")
-    private int owner_id;
+    private Hero owner;
+
+    @OneToMany
+    @JoinTable(name = "citizens")
+    @Column(name = "citizens")
+    private List <Hero> listOfCitizens;
 
     public Nationality() {
     }
 
-    public Nationality(int name, int owner_id) {
+    public Nationality(int name, Hero owner_id, List<Hero> listOfCitizens) {
         this.name = name;
-        this.owner_id = owner_id;
+        this.owner = owner;
+        this.listOfCitizens = listOfCitizens;
     }
 
     public int getId() {
@@ -43,12 +49,20 @@ public class Nationality {
         this.name = name;
     }
 
-    public int getOwner_id() {
-        return owner_id;
+    public Hero getOwner() {
+        return owner;
     }
 
-    public void setOwner_id(int owner_id) {
-        this.owner_id = owner_id;
+    public void setOwner(Hero owner) {
+        this.owner = owner;
+    }
+
+    public List<Hero> getListOfCitizens() {
+        return listOfCitizens;
+    }
+
+    public void setListOfCitizens(List<Hero> listOfCitizens) {
+        this.listOfCitizens = listOfCitizens;
     }
 
     @Override
@@ -56,6 +70,6 @@ public class Nationality {
         return "Nationality: " +
                 "id=" + id +
                 ", name=" + name +
-                ", owner_id=" + owner_id;
+                ", owner_id=" + owner.toString();
     }
 }
