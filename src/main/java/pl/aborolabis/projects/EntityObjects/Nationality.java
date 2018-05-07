@@ -13,7 +13,7 @@ public class Nationality {
     private int id;
 
     @Column(name = "name")
-    private int name;
+    private String name;
 
     @OneToOne
     @JoinColumn(name = "hero_id")
@@ -27,7 +27,11 @@ public class Nationality {
     public Nationality() {
     }
 
-    public Nationality(int name, Hero owner_id, List<Hero> listOfCitizens) {
+    public Nationality(String name) {
+        this.name = name;
+    }
+
+    public Nationality(String name, Hero owner_id, List<Hero> listOfCitizens) {
         this.name = name;
         this.owner = owner;
         this.listOfCitizens = listOfCitizens;
@@ -41,11 +45,11 @@ public class Nationality {
         this.id = id;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -69,7 +73,6 @@ public class Nationality {
     public String toString() {
         return "Nationality: " +
                 "id=" + id +
-                ", name=" + name +
-                ", owner_id=" + owner.toString();
+                ", name=" + name;
     }
 }

@@ -17,4 +17,18 @@ class NationalityServicesTest {
 
         listOfNations.stream().forEach(nationality -> System.out.println(nationality.toString()));
     }
+
+    @Test
+    void createANationality(){
+        int asgard = nationalityServices.createANationalityWithNameOnly("Asgard");
+
+        System.out.println(asgard);
+    }
+
+    @Test
+    void findNationByHisId(){
+        Nationality nationByHisId = nationalityServices.findNationByHisId(1);
+
+        System.out.println(nationByHisId.toString());
+    }
 }
