@@ -40,6 +40,7 @@ public class NationalityServices {
 
         transaction.commit();
         session.close();
+
         return id;
     }
 
@@ -52,7 +53,51 @@ public class NationalityServices {
 
         transaction.commit();
         session.close();
+
         return id;
+    }
+
+    public int save(Nationality nation) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int id = (int) session.save(nation);
+
+        transaction.commit();
+        session.close();
+
+        return id;
+    }
+
+    public void update(Nationality nationality) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.update(nationality);
+
+        transaction.commit();
+        session.close();
+    }
+
+    public void saveOrUpdate(Nationality nation) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.saveOrUpdate(nation);
+
+        transaction.commit();
+        session.close();
+    }
+
+    public void delete(int id) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Nationality nationality = (Nationality) session.get(Nationality.class, id);
+        session.delete(nationality);
+
+        transaction.commit();
+        session.close();
     }
 
     public Nationality findNationByHisId(int id){
@@ -65,6 +110,20 @@ public class NationalityServices {
         session.close();
 
         return nation;
+    }
+
+    public Nationality findNationByHisName(String name){
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query query = session.createQuery("SELECT n FROM Nationality n WHERE n.name=:name");
+        query.setParameter("name", name);
+        List<Nationality> nations = query.list();
+
+        transaction.commit();
+        session.close();
+
+        return nations.isEmpty() ? null : nations.get(0);
     }
 
 }

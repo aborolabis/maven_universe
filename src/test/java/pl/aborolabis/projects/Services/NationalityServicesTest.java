@@ -27,8 +27,26 @@ class NationalityServicesTest {
 
     @Test
     void findNationByHisId(){
-        Nationality nationByHisId = nationalityServices.findNationByHisId(1);
+        Nationality nationByHisId = nationalityServices.findNationByHisId(5);
 
         System.out.println(nationByHisId.toString());
+    }
+
+    @Test
+    void findNationByHisName(){
+        String name = "asgard";
+        Nationality nation = nationalityServices.findNationByHisName(name);
+
+        System.out.println(nation.toString());
+    }
+
+    @Test
+    void deleteNation(){
+        int id = 5;
+
+        nationalityServices.delete(5);
+
+        List<Nationality> allNations = nationalityServices.findAllNations();
+        allNations.stream().forEach(nationality -> System.out.println(nationality.toString()));
     }
 }
